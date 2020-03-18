@@ -14,15 +14,15 @@ namespace {
         void entry(const Event& e) {}
         void during() { 
             if(sensor_value(0) <= 20){
-                speed = 0.5;
+                speed = 0.5; //! Created low speed manauvers for close encounters with wall
             }else if(60 > sensor_value(0) > 20){
-                speed = 1.4;
+                speed = 1.45; //! Created medium speed manauvers for decent length from the wall
             }else if(sensor_value(0) > 60){
-                speed = 5;
+                speed = 5; //! Created high speed manauvers for time when far from wall
             }
             track_velocity(speed,0);
             if ( sensor_value(0) < 20 && !(sensor_value(1) < 5 && sensor_value(2) < 5)) {
-                emit(Event(tick_name));
+                emit(Event(tick_name)); //! Change the class activity from moving forward to rotation class 
             }            
         }
         void exit(const Event& e) {}
@@ -68,7 +68,6 @@ namespace {
             rotating.set_tick_name(tick_name);
 
         }
-
         MovingForward moving_forward;
         Rotating rotating;
         std::string tick_name;
@@ -81,7 +80,19 @@ namespace {
         Wanderer(json spec, World& world) : Agent(spec, world) {
             add_process(wc);
         }
-
+        void during() {
+            //() == 0 ) {
+            watch("button_click", [&](Event& e) {
+                if ( e.value()["value"] == "restart_button" ) {
+                    // if ( get_id() == 0 ) {
+                    // Agent& new_wanderer = add_agent("Wanderer", 2, {{"fill", "lightgreen"}});
+                    // Agent::start();
+                    // }   
+                }
+            });
+            // label(std::to_string((int) x()) + ", " + std::to_string((int) y()), 15, 15);
+            //}
+        }
         WandererController wc;
 
     };

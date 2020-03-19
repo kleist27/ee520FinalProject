@@ -8,7 +8,7 @@
         {
             "name": "restart_button",
             "label": "Restart",
-            "style": { "background": "white", "border-color": "black" }
+            "style": { "background": "black", "border-color": "yellow" }
         }
     ],
 
